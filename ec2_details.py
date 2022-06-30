@@ -1,4 +1,5 @@
 import boto3
+import json
 
 ec2 = boto3.resource('ec2')
 myinstance = ec2.Instance('i-0d1ac03b5c5d2fd9f')
@@ -117,4 +118,44 @@ s3 = boto3.resource('s3')
 for bucket in s3.buckets.all():
     print('bucket.name: ', bucket.name)
 
+
+my_bucket_1 = "elasticbeanstalk-us-east-1-741213953240"
+my_bucket_2 = "elasticbeanstalk-us-west-2-741213953240"
+
+bucket1 = s3.Bucket(my_bucket_1)
+for obj in bucket1.objects.all():
+    print(obj.key)
+
+bucket2 = s3.Bucket(my_bucket_2)
+for obj in bucket.objects.all():
+    print(obj.key)
+
+print("\n")
+
+ec2 = boto3.client('ec2')
+
+# Retrieves all regions/endpoints that work with EC2
+response = ec2.describe_regions()
+
+#print('Regions: ', response['Regions'])
+
+
+#print("\n")
+
+print('Regions: ', json.dumps(response['Regions']))
+
+print("\n")
+
+
+        
+# Retrieves availability zones only for region of the ec2 object
+
+response = ec2.describe_availability_zones()
+# print('Availability Zones: ', response['AvailabilityZones'])
+
+# print("\n")
+
+print('Availability Zones: ', json.dumps(response['AvailabilityZones']))
+
+print("\n")
 
