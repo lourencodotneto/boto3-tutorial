@@ -1,5 +1,14 @@
 import boto3
 import json
+import csv
+
+
+exportfilepath = "/home/ec2-user/boto3-tutorial/Regions_Export_Output.csv"
+exportfilepath1 = "/home/ec2-user/boto3-tutorial/Availability_Zones_Export_Output.csv"
+
+
+# Call API.
+headers = "Accept: application/json, text/plain, */*"
 
 ec2 = boto3.resource('ec2')
 myinstance = ec2.Instance('i-0d1ac03b5c5d2fd9f')
@@ -137,17 +146,98 @@ ec2 = boto3.client('ec2')
 # Retrieves all regions/endpoints that work with EC2
 response = ec2.describe_regions()
 
-#print('Regions: ', response['Regions'])
+print('Regions [PYTHON]: ', response['Regions'])
 
-
-#print("\n")
-
-print('Regions: ', json.dumps(response['Regions']))
 
 print("\n")
 
 
+#*******************************************************************************
+# ************ Start Converting from Python to JSON " json.dumps " "************
+#*******************************************************************************
+
+print('Regions [JSON]: ', json.dumps(response['Regions']))
+
+print("\n")
+
+jsondata1 = (json.dumps(response['Regions']))
+
+print('\n')
+print('jsondata1 [JSON]: ', jsondata1)
+
+
+#*******************************************************************************
+# ************ End Converting from Python to JSON " json.dumps " "**************
+#*******************************************************************************
         
+
+#*******************************************************************************
+# ************ Start Converting from JSON to Python " json.loads "  ************
+#*******************************************************************************
+
+
+jsondata2 = json.loads(jsondata1)
+
+print('\n')
+print('jsondata2 [Python]: ', jsondata2)
+
+
+
+
+print('\n')
+
+
+#*******************************************************************************
+# ************ End Converting from JSON to Python " json.loads "  **************
+#*******************************************************************************
+
+# jsondata4 = (json.dumps((jsondata3), sort_keys=False, indent=4))
+jsondata3 = (json.dumps((jsondata2)))
+
+# The result is a JSON string
+print('\n')
+print('jsondata3 [JSON]: ', jsondata3)
+jsondata4 = json.loads(jsondata3)
+
+print('\n')
+print('jsondata4 [Python]: ', jsondata4)
+
+print('\n')
+
+
+
+# Open CSV file for writing.
+csv_file = open(exportfilepath, 'w')
+csv_file_1 = open(exportfilepath1, 'w')
+
+
+# create the CSV Writer Object.
+csv_writer = csv.writer(csv_file)
+csv_writer_1 = csv.writer(csv_file_1)
+
+
+# Counter variable used for writing
+# headers to the CSV file
+count = 0
+
+# Process JSON data -> CSV
+for info in jsondata4:
+    
+    if count == 0:
+
+        # Writing headers of CSV
+        
+        header = info.keys()
+        csv_writer.writerow(header)
+        count += 1
+
+    #Writing data of CSV file
+    csv_writer.writerow(info.values())
+
+# Close file
+csv_file.close()
+
+
 # Retrieves availability zones only for region of the ec2 object
 
 response = ec2.describe_availability_zones()
@@ -155,7 +245,77 @@ response = ec2.describe_availability_zones()
 
 # print("\n")
 
-print('Availability Zones: ', json.dumps(response['AvailabilityZones']))
+print('Availability Zones [JSON]: ', json.dumps(response['AvailabilityZones']))
+
+
+
+
 
 print("\n")
+
+jsondata_AV1 = (json.dumps(response['AvailabilityZones']))
+
+print('\n')
+print('jsondata_AV1 [JSON]: ', jsondata_AV1)
+
+
+#*******************************************************************************
+# ************ End Converting from Python to JSON " json.dumps " "**************
+#*******************************************************************************
+
+
+#*******************************************************************************
+# ************ Start Converting from JSON to Python " json.loads "  ************
+#*******************************************************************************
+
+
+jsondata_AV2 = json.loads(jsondata_AV1)
+
+print('\n')
+print('jsondata2 [Python]: ', jsondata_AV2)
+
+
+
+
+print('\n')
+
+
+#*******************************************************************************
+# ************ End Converting from JSON to Python " json.loads "  **************
+#*******************************************************************************
+
+# jsondata4 = (json.dumps((jsondata3), sort_keys=False, indent=4))
+jsondata_AV3 = (json.dumps((jsondata_AV2)))
+
+# The result is a JSON string
+print('\n')
+print('jsondata_AV3 [JSON]: ', jsondata_AV3)
+jsondata_AV4 = json.loads(jsondata_AV3)
+
+print('\n')
+print('jsondata_AV4 [Python]: ', jsondata_AV4)
+
+print('\n')
+
+# Counter variable used for writing
+# headers to the CSV file
+count = 0
+
+# Process JSON data -> CSV
+for info in jsondata_AV4:
+
+    if count == 0:
+
+        # Writing headers of CSV
+
+        header = info.keys()
+        csv_writer_1.writerow(header)
+        count += 1
+
+    #Writing data of CSV file
+    csv_writer_1.writerow(info.values())
+
+# Close file
+csv_file_1.close()
+
 
