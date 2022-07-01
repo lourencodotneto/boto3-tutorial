@@ -108,10 +108,24 @@ print('myimage.tags', myimage.tags)
 print('myimage.virtualization_type', myimage.virtualization_type)
 
 print('myvp.cidr_block', myvp.cidr_block)
+
+#print('myvp.cidr_blocks [JSON]: ', json.dumps(myvp.cidr_block))
+
+print("\n")
+
+
 print('myvp.cidr_block_association_set', myvp.cidr_block_association_set)
+print('myvp.cidr_blocks_association_set [JSON]: ', json.dumps(myvp.cidr_block_association_set))
+
+print("\n")
+
+
+
 print('myvp.dhcp_options_id', myvp.dhcp_options_id)
 print('myvp.instance_tenancy', myvp.instance_tenancy)
 print('myvp.ipv6_cidr_block_association_set', myvp.ipv6_cidr_block_association_set)
+
+
 print('myvp.is_default', myvp.is_default)
 print('myvp.owner_id', myvp.owner_id)
 print('myvp.state', myvp.state)

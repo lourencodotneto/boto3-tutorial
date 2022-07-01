@@ -76,7 +76,12 @@
 ('myimage.tags', None)
 ('myimage.virtualization_type', 'hvm')
 ('myvp.cidr_block', '172.31.0.0/16')
+
+
 ('myvp.cidr_block_association_set', [{u'AssociationId': 'vpc-cidr-assoc-05e0444bf3565e68a', u'CidrBlock': '172.31.0.0/16', u'CidrBlockState': {u'State': 'associated'}}])
+('myvp.cidr_blocks_association_set [JSON]: ', '[{"AssociationId": "vpc-cidr-assoc-05e0444bf3565e68a", "CidrBlock": "172.31.0.0/16", "CidrBlockState": {"State": "associated"}}]')
+
+
 ('myvp.dhcp_options_id', 'dopt-031640ff42e0f3bac')
 ('myvp.instance_tenancy', 'default')
 ('myvp.ipv6_cidr_block_association_set', None)
