@@ -19,7 +19,11 @@ iam = boto3.client('iam')
 # List users with the paginator interface
 paginator = iam.get_paginator('list_users')
 for response in paginator.paginate():
-    print(response)
+    print('response: ', response)
+    print("\n")
+
+    print('response[Users]: ', response['Users'])
+    print("\n")
 
 print("\n")
 print("------------------------E-N-D iam code-------------------------------------")
