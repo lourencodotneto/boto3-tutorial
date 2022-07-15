@@ -4,14 +4,28 @@ import csv
 import requests
 
 
-exportfilepath = "/home/ec2-user/boto3-tutorial/Regions_Export_Output_14072022.csv"
-exportfilepath1 = "/home/ec2-user/boto3-tutorial/Availability_Zones_Export_Output_14072022.csv"
+exportfilepath = "/home/ec2-user/boto3-tutorial/iam/Regions_Export_Output_14072022.csv"
+exportfilepath1 = "/home/ec2-user/boto3-tutorial/iam/Availability_Zones_Export_Output_14072022.csv"
 
 
 # Call API.
 headers = "Accept: application/json, text/plain, */*"
 
+print("--------------------------S-T-A-R-T iam code-------------------------------")
 
+# Create IAM client
+iam = boto3.client('iam')
+
+# List users with the paginator interface
+paginator = iam.get_paginator('list_users')
+for response in paginator.paginate():
+    print(response)
+
+print("\n")
+print("------------------------E-N-D iam code-------------------------------------")
+
+print("\n")
+print("\n")
 
 
 ec2 = boto3.resource('ec2')
